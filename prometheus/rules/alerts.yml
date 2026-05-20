@@ -1,0 +1,39 @@
+groups:
+  - name: infra_alerts
+    rules:
+
+      - alert: CpuAltaCritica
+        expr: 100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 85
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "CPU crítica em {{ $labels.instance }}"
+          description: "CPU acima de 85% por mais de 2 minutos. Valor: {{ $value }}%"
+
+      - alert: MemoriaAltaCritica
+        expr: (1 - node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes) * 100 > 90
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Memória crítica em {{ $labels.instance }}"
+          description: "Uso de memória acima de 90%. Valor: {{ $value }}%"
+
+      - alert: DiscoCheio
+        expr: (node_filesystem_size_bytes - node_filesystem_free_bytes) / node_filesystem_size_bytes * 100 > 92
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disco acima de 85% em {{ $labels.instance }}"
+          description: "Partição {{ $labels.mountpoint }} com {{ $value }}% de uso"
+
+      - alert: ServicoIndisponivel
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Serviço indisponível: {{ $labels.job }}"
+          description: "Target {{ $labels.instance }} está inacessível há mais de 1 minuto"
