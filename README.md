@@ -1,37 +1,58 @@
-# Lab Observabilidade Completa
+﻿# Lab de Observabilidade — Prometheus + Grafana
 
-Stack completa de observabilidade com métricas, logs e alertas.
+![Status](https://img.shields.io/badge/status-funcional-brightgreen)
+![Docker](https://img.shields.io/badge/docker-containerizado-blue)
+![Plataformas](https://img.shields.io/badge/plataformas-Linux%20%2B%20Windows-orange)
 
-## Stack
+Ambiente de monitoramento multi-plataforma montado do zero em VMs VirtualBox.
+Monitora servidor Linux Ubuntu 22.04 e Windows Server 2022 em tempo real
+com alertas configurados e dashboards profissionais.
 
-- Prometheus — coleta e armazenamento de métricas
-- Grafana — visualização de dashboards
-- Node Exporter — métricas do servidor Linux
-- Windows Exporter — métricas do Windows Server
-- Loki — armazenamento de logs
-- Promtail — coleta de logs
-- Alertmanager — roteamento de alertas com notificação no Telegram
+## Arquitetura
 
-## Ambiente
+\\\
+Node Exporter (Linux :9100)  --+
+                               |--> Prometheus (:9090) --> Grafana (:3000) --> Navegador
+Win Exporter (Windows :9182) --+
+\\\
 
-- Ubuntu 22.04 LTS (192.168.15.155)
-- Windows Server 2022 (192.168.15.7)
-- VirtualBox com rede Bridge
-- Docker + Docker Compose
+| Maquina | IP | Sistema | Funcao |
+|---|---|---|---|
+| Servidor Linux | 192.168.15.155 | Ubuntu 22.04 LTS | Prometheus + Grafana + Node Exporter |
+| Windows Server | 192.168.15.7 | Windows Server 2022 | Windows Exporter |
 
-## Como subir
+## Evidencias do Lab
 
-git clone https://github.com/Oliveira97-png/lab-observabilidade.git
-cd lab-observabilidade
-docker compose up -d
+### Dashboard Linux (Node Exporter Full)
+![Dashboard Linux](screenshots/dashboard-linux.png)
 
-## Alertas configurados
+### Dashboard Windows Server 2022
+![Dashboard Windows](screenshots/dashboard-windows.png)
 
-- CpuAltaCritica — CPU acima de 85% por 2 minutos
-- MemoriaAltaCritica — memória acima de 90% por 2 minutos
-- DiscoCheio — disco acima de 92%
-- ServicoIndisponivel — target inacessível por 1 minuto
+### Alerta de Disco Disparando (Firing)
+![Alerta Firing](screenshots/alerta-firing.png)
 
-## Evidências
+### Prometheus monitorando duas maquinas simultaneamente
+![Targets UP](screenshots/prometheus-targets.png)
 
-Ver pasta docs/
+## Tecnologias
+
+- **Docker** — containerizacao de todos os servicos no Linux
+- **Prometheus** — coleta e armazenamento de metricas (pull model)
+- **Grafana** — dashboards e alertas
+- **Node Exporter** — metricas do servidor Linux
+- **Windows Exporter** — metricas do Windows Server 2022
+- **PromQL** — linguagem de queries para alertas e dashboards
+
+## Desafios Resolvidos
+
+- Disco do servidor atingiu 96% durante o lab — identificado pelo alerta, resolvido removendo Zabbix e limpando logs
+- Download de imagens Docker interrompido por instabilidade de rede — resolvido usando docker pull separado
+- Dashboard de 2021 exibindo N/A — resolvido importando versao 2024 compativel com Windows Exporter atual
+
+## Proximos Passos
+
+- [ ] Elastic Stack (Elasticsearch + Logstash + Kibana)
+- [ ] Kubernetes basico com Minikube
+- [ ] SQL basico para analise de dados
+- [ ] Windows Exporter na estacao Windows 11
