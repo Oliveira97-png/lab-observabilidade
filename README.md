@@ -63,3 +63,7 @@ docker compose up -d
 - Schema do Loki v11 incompatível com versão atual — migrado para v13 com tsdb
 - Containers antigos em docker run migrados para docker compose
 - Rede Docker isolada impedindo scrape do Windows Server — resolvido com extra_hosts
+- Disco atingiu 96% no lab anterior — identificado pelo alerta, resolvido removendo Zabbix e limpando logs
+- Download de imagens Docker interrompido por instabilidade de rede — resolvido usando docker pull separado
+- Dashboard de 2021 exibindo N/A — resolvido importando versão 2024 compatível com Windows Exporter atual
+- Windows Exporter instalado como serviço com regra de firewall criada manualmente
