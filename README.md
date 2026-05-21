@@ -5,23 +5,23 @@
 [![Plataformas](https://img.shields.io/badge/plataformas-Linux%20%2B%20Windows-orange)](https://github.com/Oliveira97-png/lab-observabilidade)
 
 Ambiente de observabilidade completo montado do zero em VMs VirtualBox.
-Monitora servidor Linux e Windows Server em tempo real com metricas, logs centralizados e alertas com notificacao no Telegram.
+Monitora servidor Linux e Windows Server em tempo real com métricas, logs centralizados e alertas com notificação no Telegram.
 
 ## Stack
 
-| Servico | Funcao | Porta |
+| Serviço | Função | Porta |
 | --- | --- | --- |
-| Prometheus | Coleta e armazenamento de metricas | 9090 |
-| Grafana | Dashboards e visualizacao | 3000 |
-| Node Exporter | Metricas do servidor Linux | 9100 |
-| Windows Exporter | Metricas do Windows Server | 9182 |
+| Prometheus | Coleta e armazenamento de métricas | 9090 |
+| Grafana | Dashboards e visualização | 3000 |
+| Node Exporter | Métricas do servidor Linux | 9100 |
+| Windows Exporter | Métricas do Windows Server | 9182 |
 | Loki | Armazenamento de logs | 3100 |
 | Promtail | Coleta de logs | 9080 |
 | Alertmanager | Roteamento de alertas | 9093 |
 
 ## Ambiente
 
-| Maquina | IP | Sistema | Funcao |
+| Máquina | IP | Sistema | Função |
 | --- | --- | --- | --- |
 | Servidor Linux | 192.168.15.155 | Ubuntu 22.04 LTS | Stack completa |
 | Windows Server | 192.168.15.7 | Windows Server 2022 | Windows Exporter |
@@ -35,12 +35,12 @@ docker compose up -d
 ## Alertas configurados
 
 - CpuAltaCritica — CPU acima de 85% por 2 minutos (critical)
-- MemoriaAltaCritica — memoria acima de 90% por 2 minutos (critical)
-- DiscoCheio — disco acima de 92% por 5 minutos (warning)
-- ServicoIndisponivel — target inacessivel por 1 minuto (critical)
-- Notificacoes via Telegram
+- MemoriaAltaCritica — Memória acima de 90% por 2 minutos (critical)
+- DiscoCheio — Disco acima de 92% por 5 minutos (warning)
+- ServicoIndisponivel — Target inacessível por 1 minuto (critical)
+- Notificações via Telegram
 
-## Evidencias
+## Evidências
 
 ### Dashboard Linux
 ![Dashboard Linux](screenshots/dashboard%20linux.png)
@@ -54,12 +54,12 @@ docker compose up -d
 ### Alerta de CPU Alta no Grafana
 ![CPU Alta](screenshots/Alerta%20de%20CPU%20alta%20grafana.png)
 
-### Notificacao no Telegram
+### Notificação no Telegram
 ![Telegram](screenshots/Alerta%20Telegram.png)
 
 ## Desafios Resolvidos
 
 - Disco do servidor atingiu 100% durante o lab — identificado pelo alerta, investigado com du e resolvido
-- Schema do Loki v11 incompativel com versao atual — migrado para v13 com tsdb
+- Schema do Loki v11 incompatível com versão atual — migrado para v13 com tsdb
 - Containers antigos em docker run migrados para docker compose
 - Rede Docker isolada impedindo scrape do Windows Server — resolvido com extra_hosts
