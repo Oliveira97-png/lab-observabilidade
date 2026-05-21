@@ -28,9 +28,11 @@ Monitora servidor Linux e Windows Server em tempo real com métricas, logs centr
 
 ## Como subir
 
+\```
 git clone https://github.com/Oliveira97-png/lab-observabilidade.git
 cd lab-observabilidade
 docker compose up -d
+\```
 
 ## Alertas configurados
 
